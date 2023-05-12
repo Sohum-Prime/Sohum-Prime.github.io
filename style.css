@@ -10,8 +10,8 @@ body {
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    color: #3d2929;
-    background-color: #4695b4;
+    color: #5f2f2f;
+    background-color: #5092ac;
 }
 
 a {
@@ -26,8 +26,8 @@ a {
 
 /* Header styles */
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #0f2913;
+    color: #e0bbe9;
     padding: 20px 0;
     position: fixed;
     top: 0;
