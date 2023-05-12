@@ -1,14 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>My GitHub Pages Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio Website</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Hello world!</h1>
-    <p>Welcome to my GitHub Pages site!</p>
-    <button onclick="location.href='meche-projects.html'">View Mechanical Engineering Projects</button>
+    <!-- Header section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="#">[Your Name]</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Resume</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Accounts</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Renaissance Engineer</h1>
+            <p>I'm a Mechanical Engineer, Electrical Engineer, Data Scientist, and Computer Scientist</p>
+        </div>
+    </section>
+
+    <!-- Projects section -->
+    <section class="projects">
+        <div class="container">
+            <h2>My Projects</h2>
+
+            <!-- Mechanical Engineering Projects -->
+            <div class="project-item">
+                <h3 class="project-title">Mechanical Engineering Projects</h3>
+                <button class="expand-btn">View More</button>
+                <div class="project-details">
+                    <!-- Add your Mechanical Engineering Projects details here -->
+                </div>
+            </div>
+
+            <!-- Electrical Engineering Projects -->
+            <div class="project-item">
+                <h3 class="project-title">Electrical Engineering Projects</h3>
+                <button class="expand-btn">View More</button>
+                <div class="project-details">
+                    <!-- Add your Electrical Engineering Projects details here -->
+                </div>
+            </div>
+
+            <!-- Data Science Projects -->
+            <div class="project-item">
+                <h3 class="project-title">Data Science Projects</h3>
+                <button class="expand-btn">View More</button>
+                <div class="project-details">
+                    <!-- Add your Data Science Projects details here -->
+                </div>
+            </div>
+
+            <!-- Computer Science Projects -->
+            <div class="project-item">
+                <h3 class="project-title">Computer Science Projects</h3>
+                <button class="expand-btn">View More</button>
+                <div class="project-details">
+                    <!-- Add your Computer Science Projects details here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 [Your Name]. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for project details expansion -->
+    <script src="script.js"></script>
 </body>
 
 </html>
