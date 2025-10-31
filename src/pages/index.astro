@@ -1,0 +1,187 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get featured content
+const allPosts = await getCollection('blog', ({ data }) => !data.draft && data.featured);
+const allProjects = await getCollection('projects', ({ data }) => data.featured);
+const allPublications = await getCollection('publications', ({ data }) => data.featured);
+
+const featuredPosts = allPosts.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()).slice(0, 3);
+const featuredProjects = allProjects.sort((a, b) => b.data.order - a.data.order).slice(0, 3);
+const featuredPublications = allPublications.sort((a, b) => b.data.year - a.data.year).slice(0, 3);
+---
+
+<BaseLayout>
+  <!-- Hero Section -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-balance">
+        AI Researcher & Engineer
+      </h1>
+      <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 text-balance">
+        Building intelligent systems at the intersection of AI, robotics, and machine learning
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/publications"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+        >
+          View Publications
+        </a>
+        <a
+          href="/projects"
+          class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+        >
+          Explore Projects
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">About Me</h2>
+      <div class="prose prose-lg dark:prose-dark max-w-none">
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          I'm Sohum Kothavade, a Renaissance Engineer at <strong>Olin College of Engineering</strong> with a focus on AI research and robotics. 
+          I'm also pursuing Master's Degrees in Data Science, Computer Science, and Electrical Engineering from <strong>CU Boulder</strong>.
+        </p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+          My research interests lie at the intersection of artificial intelligence, machine learning, robotics, and their applications to real-world problems. 
+          I'm passionate about building systems that can learn, adapt, and interact with the physical world in meaningful ways.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Publications -->
+  {featuredPublications.length > 0 && (
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto max-w-6xl">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Featured Publications</h2>
+          <a href="/publications" class="text-primary-600 dark:text-primary-400 hover:underline">
+            View all →
+          </a>
+        </div>
+        <div class="space-y-6">
+          {featuredPublications.map((pub) => (
+            <article class="bg-white dark:bg-gray-950 rounded-lg p-6 border border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                {pub.data.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                {pub.data.authors.join(', ')} — {pub.data.venue}, {pub.data.year}
+              </p>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">
+                {pub.data.abstract}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {pub.data.pdf && (
+                  <a href={pub.data.pdf} class="text-sm text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                    PDF
+                  </a>
+                )}
+                {pub.data.arxiv && (
+                  <a href={pub.data.arxiv} class="text-sm text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                    arXiv
+                  </a>
+                )}
+                {pub.data.github && (
+                  <a href={pub.data.github} class="text-sm text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                    Code
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Featured Projects -->
+  {featuredProjects.length > 0 && (
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+      <div class="container mx-auto max-w-6xl">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Featured Projects</h2>
+          <a href="/projects" class="text-primary-600 dark:text-primary-400 hover:underline">
+            View all →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredProjects.map((project) => (
+            <article class="bg-white dark:bg-gray-950 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                  {project.data.title}
+                </h3>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                  {project.data.description}
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {project.data.tags.map((tag) => (
+                    <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div class="flex gap-4">
+                  {project.data.github && (
+                    <a href={project.data.github} class="text-sm text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  )}
+                  {project.data.demo && (
+                    <a href={project.data.demo} class="text-sm text-primary-600 dark:text-primary-400 hover:underline" target="_blank" rel="noopener noreferrer">
+                      Demo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Featured Blog Posts -->
+  {featuredPosts.length > 0 && (
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto max-w-6xl">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Latest Posts</h2>
+          <a href="/blog" class="text-primary-600 dark:text-primary-400 hover:underline">
+            View all →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredPosts.map((post) => (
+            <article class="bg-white dark:bg-gray-950 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+              <div class="p-6">
+                <time class="text-sm text-gray-600 dark:text-gray-400">
+                  {post.data.publishDate.toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mt-2 mb-2">
+                  <a href={`/blog/${post.slug}`} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                    {post.data.title}
+                  </a>
+                </h3>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                  {post.data.description}
+                </p>
+                <a href={`/blog/${post.slug}`} class="text-sm text-primary-600 dark:text-primary-400 hover:underline">
+                  Read more →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>
